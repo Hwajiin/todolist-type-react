@@ -1,7 +1,12 @@
 import React from "react";
+import { AuthServiceType } from "../App";
 import LoginPresenter from "./loginPresenter";
 
-const LoginContainer = () => {
+type LoginContainerProps = {
+  authService: AuthServiceType;
+};
+
+const LoginContainer = ({ authService }: LoginContainerProps) => {
   return <LoginPresenter />;
 };
 

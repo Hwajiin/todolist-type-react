@@ -1,7 +1,12 @@
 import React from "react";
+import { AuthServiceType } from "../App";
 import DetailPresenter from "./detailPresenter";
 
-const DetailContainer = () => {
+type DetailContainerProps = {
+  authService: AuthServiceType;
+};
+
+const DetailContainer = ({ authService }: DetailContainerProps) => {
   return <DetailPresenter />;
 };
 

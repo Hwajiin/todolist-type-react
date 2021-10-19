@@ -1,21 +1,34 @@
+import { UserCredential, User } from "@firebase/auth";
 import React from "react";
 import { HashRouter, Switch, Route, Redirect } from "react-router-dom";
 import DetailContainer from "./detail/detailContainer";
 import HomeContainer from "./home/homeContainer";
 import LoginContainer from "./login/loginContainer";
 
-const App = () => {
+type OnUserChange = (user: User) => void;
+
+export type AuthServiceType = {
+  login(provider: string): Promise<UserCredential>;
+  logout(): void;
+  onAuthChange(onUserChange: OnUserChange): void;
+};
+
+type AppProps = {
+  authService: AuthServiceType;
+};
+
+const App = ({ authService }: AppProps) => {
   return (
     <HashRouter>
       <Switch>
         <Route exact path="/">
-          <LoginContainer />
+          <LoginContainer authService={authService} />
         </Route>
         <Route path="/home">
-          <HomeContainer />
+          <HomeContainer authService={authService} />
         </Route>
         <Route path="/:id">
-          <DetailContainer />
+          <DetailContainer authService={authService} />
         </Route>
         <Redirect from="*" to="/" />
       </Switch>
