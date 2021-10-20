@@ -1,4 +1,4 @@
-import React, { MouseEventHandler } from "react";
+import React, { MouseEventHandler, useEffect } from "react";
 import { useHistory } from "react-router";
 import { AuthServiceType } from "../App";
 import LoginPresenter from "./loginPresenter";
@@ -13,18 +13,29 @@ type FirebaseResObj = {
 
 const LoginContainer = ({ authService }: LoginContainerProps) => {
   const history = useHistory();
-  const goToHome = (userToken: string) => {
+  const goToHome = (id: string) => {
     history.push({
       pathname: "/home",
-      state: { id: userToken },
+      state: { id },
     });
   };
 
   const onLogin = (providerName: string) => {
     authService //
       .login(providerName)
-      .then((res: FirebaseResObj) => goToHome(res.user.uid));
+      .then((res) => goToHome(res.user.uid))
+      .catch((err) => {
+        alert("동일한 이메일의 계정이 있습니다!");
+        return history.push("/");
+      });
   };
+
+  useEffect(() => {
+    authService //
+      .onAuthChange((user) => {
+        user && goToHome(user.uid);
+      });
+  });
 
   return <LoginPresenter onLogin={onLogin} />;
 };

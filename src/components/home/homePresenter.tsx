@@ -1,7 +1,11 @@
 import React from "react";
 
-const HomePresenter = () => {
-  return <h1>Home</h1>;
+type HomePresenterProps = {
+  onLogout: () => void;
+};
+
+const HomePresenter = ({ onLogout }: HomePresenterProps) => {
+  return <button onClick={onLogout}>Logout</button>;
 };
 
 export default HomePresenter;

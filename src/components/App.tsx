@@ -8,7 +8,7 @@ import LoginContainer from "./login/loginContainer";
 type OnUserChange = (user: User) => void;
 
 export type AuthServiceType = {
-  login(provider: string): Promise<UserCredential>;
+  login(provider: string): Promise<UserCredential | never>;
   logout(): void;
   onAuthChange(onUserChange: OnUserChange): void;
 };

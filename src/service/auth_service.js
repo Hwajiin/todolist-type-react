@@ -6,6 +6,8 @@ import {
   signInWithPopup,
   signOut,
   onAuthStateChanged,
+  fetchSignInMethodsForEmail,
+  signInWithRedirect,
 } from "firebase/auth";
 
 class AuthService {
@@ -19,6 +21,15 @@ class AuthService {
   login(providerName) {
     const provider = this.getProvider(providerName);
     return signInWithPopup(this.firebaseAuth, provider);
+    // .catch((error) => {
+    //   if (error.code === "auth/account-exists-with-different-credential") {
+    //     fetchSignInMethodsForEmail(error.email).then((providers) => {
+    //       if (providers[0] === "google.com") {
+    //         return signInWithRedirect(this.googleProvider);
+    //       }
+    //     });
+    // }
+    // });
   }
 
   logout() {
