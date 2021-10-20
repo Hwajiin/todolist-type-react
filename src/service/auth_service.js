@@ -1,6 +1,7 @@
 import {
   GoogleAuthProvider,
   GithubAuthProvider,
+  TwitterAuthProvider,
   getAuth,
   signInWithPopup,
   signOut,
@@ -12,6 +13,7 @@ class AuthService {
     this.firebaseAuth = getAuth();
     this.googleProvider = new GoogleAuthProvider();
     this.githubProvider = new GithubAuthProvider();
+    this.twitterProvider = new TwitterAuthProvider();
   }
 
   login(providerName) {
@@ -33,6 +35,8 @@ class AuthService {
         return this.googleProvider;
       case "Github":
         return this.githubProvider;
+      case "Twitter":
+        return this.twitterProvider;
       default:
         throw new Error("Not found");
     }
