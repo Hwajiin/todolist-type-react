@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
-import { AuthServiceType } from "../App";
+import { AuthServiceType } from "../../components/App";
 import HomePresenter from "./homePresenter";
 
 type HomeContainerProps = {

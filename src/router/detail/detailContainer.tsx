@@ -1,5 +1,5 @@
 import React from "react";
-import { AuthServiceType } from "../App";
+import { AuthServiceType } from "../../components/App";
 import DetailPresenter from "./detailPresenter";
 
 type DetailContainerProps = {

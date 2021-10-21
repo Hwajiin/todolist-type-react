@@ -1,9 +1,10 @@
 import { UserCredential, User } from "@firebase/auth";
 import React from "react";
 import { HashRouter, Switch, Route, Redirect } from "react-router-dom";
-import DetailContainer from "./detail/detailContainer";
-import HomeContainer from "./home/homeContainer";
-import LoginContainer from "./login/loginContainer";
+import DetailContainer from "../router/detail/detailContainer";
+import DiaryContainer from "../router/diary/diaryContainer";
+import HomeContainer from "../router/home/homeContainer";
+import LoginContainer from "../router/login/loginContainer";
 
 type OnUserChange = (user: User) => void;
 
@@ -26,6 +27,9 @@ const App = ({ authService }: AppProps) => {
         </Route>
         <Route path="/home">
           <HomeContainer authService={authService} />
+        </Route>
+        <Route path="/diary">
+          <DiaryContainer authService={authService} />
         </Route>
         <Route path="/:id">
           <DetailContainer authService={authService} />
