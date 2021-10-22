@@ -1,6 +1,7 @@
 import { UserCredential, User } from "@firebase/auth";
 import React from "react";
 import { HashRouter, Switch, Route, Redirect } from "react-router-dom";
+import ToDoProvider from "../common/context";
 import DetailContainer from "../router/detail/detailContainer";
 import DiaryContainer from "../router/diary/diaryContainer";
 import HomeContainer from "../router/home/homeContainer";
@@ -20,23 +21,26 @@ type AppProps = {
 
 const App = ({ authService }: AppProps) => {
   return (
-    <HashRouter>
-      <Switch>
-        <Route exact path="/">
-          <LoginContainer authService={authService} />
-        </Route>
-        <Route path="/home">
-          <HomeContainer authService={authService} />
-        </Route>
-        <Route path="/diary">
-          <DiaryContainer authService={authService} />
-        </Route>
-        <Route path="/:id">
-          <DetailContainer authService={authService} />
-        </Route>
-        <Redirect from="*" to="/" />
-      </Switch>
-    </HashRouter>
+    <ToDoProvider>
+      <HashRouter>
+        <Switch>
+          <Route exact path="/">
+            <LoginContainer authService={authService} />
+          </Route>
+          <Route path="/home">
+            <HomeContainer authService={authService} />
+          </Route>
+          <Route path="/diary">
+            <DiaryContainer authService={authService} />
+          </Route>
+          <Route path="/:id">
+            <DetailContainer authService={authService} />
+          </Route>
+
+          <Redirect from="*" to="/" />
+        </Switch>
+      </HashRouter>
+    </ToDoProvider>
   );
 };
 

@@ -11,7 +11,7 @@ import toDoReducer, { ToDoAction } from "./reducer";
 /**
  * ToDoState의 형태
  */
-type ToDo = {
+export type ToDo = {
   id: string;
   text: string;
 };
@@ -46,12 +46,12 @@ const ToDoProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-const useDispatch = () => {
+export const useDispatch = () => {
   const { dispatch } = useContext(ToDoContext)!;
   return dispatch;
 };
 
-const useToDoState = () => {
+export const useToDoState = () => {
   const { todoState } = useContext(ToDoContext)!;
   return todoState;
 };

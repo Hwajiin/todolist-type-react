@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
+import { useToDoState } from "../../common/context";
 import { AuthServiceType } from "../../components/App";
 import HomePresenter from "./homePresenter";
 
@@ -17,6 +18,8 @@ const HomeContainer = ({ authService }: HomeContainerProps) => {
 
   const [userId, setUserId] = useState<string>(historyState && historyState.id);
 
+  const { toDos } = useToDoState();
+
   const onLogout = () => {
     authService //
       .logout();
@@ -33,7 +36,7 @@ const HomeContainer = ({ authService }: HomeContainerProps) => {
       });
   }, [authService]);
 
-  return <HomePresenter onLogout={onLogout} />;
+  return <HomePresenter onLogout={onLogout} toDos={toDos} />;
 };
 
 export default HomeContainer;
