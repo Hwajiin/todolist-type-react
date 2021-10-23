@@ -1,4 +1,4 @@
-import React from "react";
+import React, { MutableRefObject, useState } from "react";
 import { ToDo, useDispatch } from "../../common/context";
 import ToDoItemPresenter from "./todoItemPresenter";
 
@@ -19,7 +19,12 @@ const ToDoItemContainer = ({ todo, isCompleted }: ToDoItemContainerProps) => {
   };
 
   // Edit 기능 구현 후
-  const onEdit = () => {};
+  const onEdit = (ref: MutableRefObject<HTMLInputElement | null>) => {
+    const text = ref.current!.value;
+    if (text.trim() !== "") {
+      dispatch({ type: "EDIT", id: todo.id, text });
+    }
+  };
 
   return (
     <ToDoItemPresenter

@@ -1,11 +1,16 @@
-import React from "react";
+import React, {
+  FormEventHandler,
+  MutableRefObject,
+  useRef,
+  useState,
+} from "react";
 import { ToDo } from "../../common/context";
 
 type ToDoItemPresenterProps = {
   todo: ToDo;
   onDelete: () => void;
   onToggle: () => void;
-  onEdit: () => void;
+  onEdit: (ref: MutableRefObject<HTMLInputElement | null>) => void;
   isCompleted?: boolean;
 };
 
@@ -16,18 +21,38 @@ const ToDoItemPresenter = ({
   onEdit,
   isCompleted,
 }: ToDoItemPresenterProps) => {
+  const [edit, setEdit] = useState(false);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const onClick = () => {
+    setEdit(true);
+  };
+
+  const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+    inputRef && onEdit(inputRef);
+    setEdit(false);
+  };
+
   return (
     <li>
-      <div>
-        <span>{todo.text}</span>
-      </div>
-      <div>
-        <button onClick={onDelete}>DEL</button>
-        <button onClick={onToggle}>
-          {isCompleted ? "UNCOMPLETE" : "COMPLETE"}
-        </button>
-        <button onClick={onEdit}>EDIT</button>
-      </div>
+      {edit ? (
+        <form onSubmit={onSubmit}>
+          <input type="text" placeholder="수정" ref={inputRef} />
+        </form>
+      ) : (
+        <>
+          <div>
+            <span>{todo.text}</span>
+          </div>
+          <div>
+            <button onClick={onDelete}>DEL</button>
+            <button onClick={onToggle}>
+              {isCompleted ? "UNCOMPLETE" : "COMPLETE"}
+            </button>
+            <button onClick={onClick}>EDIT</button>
+          </div>
+        </>
+      )}
     </li>
   );
 };
