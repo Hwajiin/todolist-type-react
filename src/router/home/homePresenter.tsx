@@ -7,9 +7,10 @@ import ToDoListContainer from "../../components/todo-list/todoListContainer";
 type HomePresenterProps = {
   onLogout: () => void;
   toDos: ToDo[];
+  completed: ToDo[];
 };
 
-const HomePresenter = ({ onLogout, toDos }: HomePresenterProps) => {
+const HomePresenter = ({ onLogout, toDos, completed }: HomePresenterProps) => {
   return (
     <div>
       <button onClick={onLogout}>Logout</button>
@@ -18,6 +19,11 @@ const HomePresenter = ({ onLogout, toDos }: HomePresenterProps) => {
         <ToDoListContainer name="To Do">
           {toDos.map((todo) => (
             <ToDoItemContainer key={todo.id} todo={todo} />
+          ))}
+        </ToDoListContainer>
+        <ToDoListContainer name="Completed">
+          {completed.map((todo) => (
+            <ToDoItemContainer key={todo.id} todo={todo} isCompleted={true} />
           ))}
         </ToDoListContainer>
       </div>

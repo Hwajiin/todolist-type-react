@@ -18,7 +18,7 @@ const HomeContainer = ({ authService }: HomeContainerProps) => {
 
   const [userId, setUserId] = useState<string>(historyState && historyState.id);
 
-  const { toDos } = useToDoState();
+  const { toDos, completed } = useToDoState();
 
   const onLogout = () => {
     authService //
@@ -36,7 +36,9 @@ const HomeContainer = ({ authService }: HomeContainerProps) => {
       });
   }, [authService]);
 
-  return <HomePresenter onLogout={onLogout} toDos={toDos} />;
+  return (
+    <HomePresenter onLogout={onLogout} toDos={toDos} completed={completed} />
+  );
 };
 
 export default HomeContainer;

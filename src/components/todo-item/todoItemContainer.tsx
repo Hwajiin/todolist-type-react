@@ -4,9 +4,10 @@ import ToDoItemPresenter from "./todoItemPresenter";
 
 type ToDoItemContainerProps = {
   todo: ToDo;
+  isCompleted?: boolean;
 };
 
-const ToDoItemContainer = ({ todo }: ToDoItemContainerProps) => {
+const ToDoItemContainer = ({ todo, isCompleted }: ToDoItemContainerProps) => {
   const dispatch = useDispatch();
 
   const onDelete = () => {
@@ -14,7 +15,7 @@ const ToDoItemContainer = ({ todo }: ToDoItemContainerProps) => {
   };
 
   const onToggle = () => {
-    dispatch({ type: "COMPLETE", id: todo.id });
+    dispatch({ type: isCompleted ? "UNCOMPLETE" : "COMPLETE", id: todo.id });
   };
 
   // Edit 기능 구현 후
@@ -26,6 +27,7 @@ const ToDoItemContainer = ({ todo }: ToDoItemContainerProps) => {
       onDelete={onDelete}
       onToggle={onToggle}
       onEdit={onEdit}
+      isCompleted={isCompleted}
     />
   );
 };

@@ -6,6 +6,7 @@ type ToDoItemPresenterProps = {
   onDelete: () => void;
   onToggle: () => void;
   onEdit: () => void;
+  isCompleted?: boolean;
 };
 
 const ToDoItemPresenter = ({
@@ -13,6 +14,7 @@ const ToDoItemPresenter = ({
   onDelete,
   onToggle,
   onEdit,
+  isCompleted,
 }: ToDoItemPresenterProps) => {
   return (
     <li>
@@ -21,7 +23,9 @@ const ToDoItemPresenter = ({
       </div>
       <div>
         <button onClick={onDelete}>DEL</button>
-        <button onClick={onToggle}>COMPLETE</button>
+        <button onClick={onToggle}>
+          {isCompleted ? "UNCOMPLETE" : "COMPLETE"}
+        </button>
         <button onClick={onEdit}>EDIT</button>
       </div>
     </li>
