@@ -38,18 +38,23 @@ const toDoReducer = (state: ToDoState, action: ToDoAction): ToDoState => {
         completed: completed.filter((todo) => todo.id !== action.id),
         toDos: [unCompletedTarget, ...toDos],
       };
-    // Edit 기능 구현하기
     case "EDIT":
-      const editToDoTarget = toDos.find((todo) => todo.id === action.id)!;
-      const editCompletedTarget = toDos.find((todo) => todo.id === action.id)!;
       return {
         ...state,
-        toDos: [{ ...editToDoTarget, text: action.text }, ...toDos],
-        completed: [
-          { ...editCompletedTarget, text: action.text },
-          ...completed,
-        ],
+        toDos: toDos.map((todo) => {
+          return {
+            ...todo,
+            text: todo.id === action.id ? action.text : todo.text,
+          };
+        }),
+        completed: completed.map((todo) => {
+          return {
+            ...todo,
+            text: todo.id === action.id ? action.text : todo.text,
+          };
+        }),
       };
+
     default:
       throw new Error("Sorry");
   }

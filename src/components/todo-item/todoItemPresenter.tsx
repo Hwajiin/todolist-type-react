@@ -4,7 +4,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { ToDo } from "../../common/context";
+import { ToDo, useToDoState } from "../../common/context";
 
 type ToDoItemPresenterProps = {
   todo: ToDo;
@@ -27,10 +27,13 @@ const ToDoItemPresenter = ({
     setEdit(true);
   };
 
+  const { toDos } = useToDoState();
+
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     inputRef && onEdit(inputRef);
     setEdit(false);
+    console.log(toDos);
   };
 
   return (

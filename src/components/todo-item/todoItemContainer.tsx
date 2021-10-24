@@ -1,5 +1,5 @@
 import React, { MutableRefObject, useState } from "react";
-import { ToDo, useDispatch } from "../../common/context";
+import { ToDo, useDispatch, useToDoState } from "../../common/context";
 import ToDoItemPresenter from "./todoItemPresenter";
 
 type ToDoItemContainerProps = {
@@ -9,6 +9,7 @@ type ToDoItemContainerProps = {
 
 const ToDoItemContainer = ({ todo, isCompleted }: ToDoItemContainerProps) => {
   const dispatch = useDispatch();
+  const { toDos } = useToDoState();
 
   const onDelete = () => {
     dispatch({ type: "DEL", id: todo.id });
