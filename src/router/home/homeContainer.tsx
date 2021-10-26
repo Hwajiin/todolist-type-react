@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
-import { useToDoState } from "../../common/context";
+import { useDB, useSetToDoList, useToDoState } from "../../common/context";
 import { AuthServiceType } from "../../components/App";
 import HomePresenter from "./homePresenter";
 
@@ -19,11 +19,19 @@ const HomeContainer = ({ authService }: HomeContainerProps) => {
   const [userId, setUserId] = useState<string>(historyState && historyState.id);
 
   const { toDos, completed } = useToDoState();
+  const DB = useDB();
+  const setToDoList = useSetToDoList();
+  const toDoState = useToDoState();
 
   const onLogout = () => {
     authService //
       .logout();
   };
+
+  useEffect(() => {
+    if (!userId) return;
+    DB.readList(userId, (toDoState) => console.log(toDoState));
+  }, []);
 
   useEffect(() => {
     authService //
@@ -37,7 +45,12 @@ const HomeContainer = ({ authService }: HomeContainerProps) => {
   }, [authService]);
 
   return (
-    <HomePresenter onLogout={onLogout} toDos={toDos} completed={completed} />
+    <HomePresenter
+      onLogout={onLogout}
+      toDos={toDos}
+      completed={completed}
+      userId={userId}
+    />
   );
 };
 

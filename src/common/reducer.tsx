@@ -2,7 +2,7 @@ import { ToDoState } from "./context";
 import { v4 as uuidv4 } from "uuid";
 
 export type ToDoAction =
-  | { type: "ADD"; text: string }
+  | { type: "ADD"; id: string; text: string }
   | { type: "DEL"; id: string }
   | { type: "COMPLETE"; id: string }
   | { type: "UNCOMPLETE"; id: string }
@@ -14,7 +14,7 @@ const toDoReducer = (state: ToDoState, action: ToDoAction): ToDoState => {
     case "ADD":
       return {
         ...state,
-        toDos: [{ text: action.text, id: uuidv4() }, ...toDos],
+        toDos: [{ text: action.text, id: action.id }, ...toDos],
       };
     case "DEL":
       return {

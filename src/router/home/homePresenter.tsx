@@ -8,14 +8,20 @@ type HomePresenterProps = {
   onLogout: () => void;
   toDos: ToDo[];
   completed: ToDo[];
+  userId: string;
 };
 
-const HomePresenter = ({ onLogout, toDos, completed }: HomePresenterProps) => {
+const HomePresenter = ({
+  onLogout,
+  toDos,
+  completed,
+  userId,
+}: HomePresenterProps) => {
   return (
     <div>
       <button onClick={onLogout}>Logout</button>
       <div>
-        <FormContainer />
+        <FormContainer userId={userId} />
         <ToDoListContainer name="To Do">
           {toDos.map((todo) => (
             <ToDoItemContainer key={todo.id} todo={todo} />

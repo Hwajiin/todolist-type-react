@@ -1,4 +1,5 @@
 import React, { MutableRefObject, useState } from "react";
+import { useHistory } from "react-router";
 import { ToDo, useDispatch, useToDoState } from "../../common/context";
 import ToDoItemPresenter from "./todoItemPresenter";
 
@@ -16,7 +17,10 @@ const ToDoItemContainer = ({ todo, isCompleted }: ToDoItemContainerProps) => {
   };
 
   const onToggle = () => {
-    dispatch({ type: isCompleted ? "UNCOMPLETE" : "COMPLETE", id: todo.id });
+    dispatch({
+      type: isCompleted ? "UNCOMPLETE" : "COMPLETE",
+      id: todo.id,
+    });
   };
 
   // Edit 기능 구현 후

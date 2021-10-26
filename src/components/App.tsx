@@ -1,7 +1,7 @@
 import { UserCredential, User } from "@firebase/auth";
 import React from "react";
 import { HashRouter, Switch, Route, Redirect } from "react-router-dom";
-import ToDoProvider from "../common/context";
+import ToDoProvider, { ToDo } from "../common/context";
 import DetailContainer from "../router/detail/detailContainer";
 import DiaryContainer from "../router/diary/diaryContainer";
 import HomeContainer from "../router/home/homeContainer";
